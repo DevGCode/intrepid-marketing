@@ -1,0 +1,70 @@
+{% extends 'userarea/main.html' %} {% load static %} {% block content %}
+{% include 'userarea/header.html' %}
+
+<div class="justify-content-md-center mt-3 text-center">
+  <h3 class="mb-3"><b>Earn Money </b>While you Sleep</h3>
+
+  <p>
+    Every time somebody uses this link and becomes a customer, <br /><b
+      >you get 5% of the retainer as long as they remain a client.</b
+    >
+  </p>
+
+  <!-- The text field -->
+  <input
+    class="text-center"
+    style="width: 50%"
+    type="text"
+    value="http://127.0.0.1:8000/referral/{{user.id}}"
+    id="myInput"
+  />
+
+  <!-- The button used to copy the text -->
+  <button class="btn btn-primary btn-sm" onclick="myFunction()">
+    <i class="fa fa-clipboard"></i> Copy to Clipboard
+  </button>
+</div>
+
+{% if referrals %} {% for referral in referrals %}
+<div class="justify-content-md-center mt-3 bg-gray p-3 mt-5">
+  <h3 class="text-center">Your Referral Income</h3>
+  <hr />
+  <div class="row">
+    <div class="col">
+      <p><b>Client Name:</b> {{ referral.name }}</p>
+    </div>
+    <div class="col">
+      <p><b>Monthly Revenue:</b> ${{ referral.monthly_revenue }}</p>
+    </div>
+    <div class="col">
+      {% if referral.read %}
+      <p class="text-success"><i class="fa fa-check"></i> Read</p>
+      {% else %}
+      <a
+        href="{% url 'mark-referral-as-read' referral.id %}"
+        class="text-danger"
+        ><i class="fa fa-times-circle"></i> Accept</a
+      >
+      {% endif %}
+    </div>
+  </div>
+</div>
+{% endfor %} {% endif %}
+
+<script>
+  function myFunction() {
+    /* Get the text field */
+    var copyText = document.getElementById("myInput");
+
+    /* Select the text field */
+    copyText.select();
+    copyText.setSelectionRange(0, 99999); /* For mobile devices */
+
+    /* Copy the text inside the text field */
+    document.execCommand("copy");
+
+    /* Alert the copied text */
+    alert("Copied your referral link: " + copyText.value);
+  }
+</script>
+{% endblock content %}

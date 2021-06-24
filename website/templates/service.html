@@ -1,0 +1,95 @@
+{% extends 'base.html' %} {% load static %} {% block content %}
+
+<div class="listing-categories-page">
+  <!-- Hero Section-->
+  <section
+    style="background: url('{{ service.thumbnail.url }}') no-repeat;"
+    class="hero"
+  >
+    <div class="container" data-aos="zoom-in" data-aos-delay="200">
+      <ul class="breadcrumb">
+        <li class="breadcrumb-item">
+          <a class="icon-yellow" href="{% url 'home' %}">Home</a>
+        </li>
+        <li class="breadcrumb-item active">{{ service.title }}</li>
+      </ul>
+      <h1 style="text-shadow: 2px 2px #000">{{ service.title }}</h1>
+      <p
+        class="text-hero"
+        style="
+          background-color: #f6b725;
+          color: #000;
+          font-weight: 400;
+          width: 33%;
+          padding: 0.75%;
+          padding-left: 2%;
+        "
+      >
+        Discover how simple it really is.
+      </p>
+    </div>
+  </section>
+  <section class="mt-5 mb-5 p-5">
+    <div class="container" data-aos="fade-up">{{ service.body|safe }}</div>
+  </section>
+
+  <!-- Separator Section-->
+  <section class="divider cta-bg" data-aos="fade-up">
+    <div class="container" data-aos="zoom-in" data-aos-delay="100">
+      <h2 style="text-shadow: 2px 2px #000" class="has-lines">
+        Request Our Portfolio
+      </h2>
+      <p class="lead">We are excited to share our past work with you.</p>
+      <a
+        href="{% url 'request-portfolio' %}"
+        class="btn btn-info has-shadow has-wide-padding"
+        >Request Portfolio</a
+      >
+    </div>
+  </section>
+
+  <!-- Blog Section-->
+  <section class="blog bg-gray">
+    <div class="container" data-aos="fade-up">
+      <header>
+        <h2 class="has-lines">
+          Helpful Tech <span class="text-primary">Articles &amp; Tips</span> for
+          your business
+        </h2>
+        <p class="lead">Learn how to modernize your business.</p>
+      </header>
+      <div class="row">
+        {% for post in latest %}
+        <div class="col-lg-4" data-aos="zoom-in" data-aos-delay="100">
+          <div class="post">
+            <div class="image">
+              <img src="{{ post.thumbnail.url }}" alt="..." />
+            </div>
+            <div class="info d-flex align-items-end">
+              <div class="content">
+                <div class="post-meta">{{ post.timestamp }}</div>
+                <a href="{% url 'post-detail' post.pk %}">
+                  <h3>{{ post.title }}</h3></a
+                >
+                <p>{{ post.overview|linebreaks|truncatechars:'150' }}</p>
+                <a
+                  href="{% url 'post-detail' post.pk %}"
+                  class="has-lines read-more"
+                  >Read More</a
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+      <a
+        href="{% url 'post-list' %}"
+        class="pull-right visit-blog btn-lg btn btn-primary has-shadow has-wide-padding"
+        >Visit Blog</a
+      >
+    </div>
+  </section>
+</div>
+
+{% endblock content %}

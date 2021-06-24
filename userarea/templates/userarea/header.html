@@ -1,0 +1,10 @@
+{% load static %}
+
+<div class="row pull-right">
+  <p style="margin-top: 6.5%" class="mr-2">Howdy, {{ user.username }}</p>
+  <a href="{% url 'update-profile' %}"
+    ><img src="{% static 'website/img/user.png' %}" alt=""
+  /></a>
+</div>
+
+<br /><br />

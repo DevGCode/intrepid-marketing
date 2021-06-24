@@ -1,0 +1,65 @@
+{% load static %}
+
+<footer class="main-footer">
+  <div class="container">
+    <div class="row">
+      <div class="about col-md-4">
+        <div class="logo text-left"><img src="{% static 'website/img/logo-white.png' %}" alt="..."></div>
+        <p>Intrepid Marketing Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum..</p>
+      </div>
+      <div class="site-links col-md-4">
+        <h3>Navigation</h3>
+        <div class="menus d-flex">
+          <ul class="list-unstyled">
+            <li> <a href="{% url 'home' %}">Homepage</a></li> 
+            <li> <a href="{% url 'post-list' %}">Our Blog</a></li>
+            <li> <a href="{% url 'contact' %}">Contact</a></li>
+
+          </ul>
+          <ul class="list-unstyled">
+            <li> <a href="{% url 'free-website-audit' %}">Free Website Audit </a></li>
+            <li> <a href="{% url 'privacy' %}">Privacy policy </a></li>
+            <li> <a href="{% url 'terms' %}">Terms of Service</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="contact col-md-4">
+        <h3>Send a message</h3>
+          <form style="background-color:#fff; padding:8%;" action="{% url 'contact' %}" method="POST" role="form" class="custom-form form">
+            {% csrf_token %}		 
+            <div class="form-row">
+              <div class="col-md-6 form-group">
+                <input type="text" name="name" class="form-control" id="name" placeholder="Your Name" data-rule="minlen:4" data-msg="Please enter at least 4 chars" />
+               </div>
+              <div class="col-md-6 form-group">
+                <input type="email" class="form-control" name="email" id="email" placeholder="Your Email" data-rule="email" data-msg="Please enter a valid email" />
+               </div>
+            </div>
+            <div class="form-group">
+              <input type="text" class="form-control" name="url" id="subject" placeholder="Your Website URL" data-rule="minlen:4" data-msg="Please enter at least 8 chars of subject" />
+             </div>
+            <div class="form-group">
+              <textarea class="form-control" name="message" rows="2" data-rule="required" data-msg="Write your message here" placeholder="Write your message here"></textarea>
+             </div>
+             <div class="text-center">
+             <button type="submit" class="btn-sm btn btn-primary">Send Message</button>
+             </div>
+            </form>
+
+
+          <ul class="social-menu lisy-inline">
+            <!-- <li class="list-inline-item"><a href="#" target="_blank" title="Facebook"><i class="fa fa-facebook">                        </i></a></li>
+            <li class="list-inline-item"><a href="#" target="_blank" title="Twitter"><i class="fa fa-twitter">                        </i></a></li>
+            <li class="list-inline-item"><a href="#" target="_blank" title="Linkedin"><i class="fa fa-linkedin">                        </i></a></li>
+            <li class="list-inline-item"><a href="#" target="_blank" title="Instagram"><i class="fa fa-instagram">                        </i></a></li>
+            <li class="list-inline-item"><a href="#" target="_blank" title="YouTube"><i class="fa fa-youtube">                        </i></a></li> -->
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="copyrights text-center">
+    <span><b class="mr-1" style="color:#000;">Powered By Bravery</b><img style="width:30%;" src="{% static 'website/img/logo-black.png' %}" alt=""></span>
+  </div>
+</footer>
+

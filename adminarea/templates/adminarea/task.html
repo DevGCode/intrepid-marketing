@@ -1,0 +1,43 @@
+{% extends "adminarea/base.html" %}
+
+{% block content %}
+
+<form action="{% url 'add_task' %}" method="POST">
+  {% csrf_token %}
+  <div class="row">
+    <div class="col-3">
+      <input type="text" class="form-control" name="task_name" placeholder="Task name">
+    </div>
+    <div class="col-8">
+      <input type="text" class="form-control" name="task_desc" placeholder="Description"></input>
+    </div>
+    <div class="col-1">
+      <button type="submit" class="btn btn-primary" value="Add">Add</button>
+    </div>
+  </div>
+</form>
+<div class="container w-100 d-flex justify-content-center mt-4">
+
+  <table class="my-table w-100 text-center">
+    <thead>
+      <tr class="text-center">
+        <th scope="col">Task</th>
+        <th scope="col">Description</th>
+        <th scope="col">Date</th>
+        <th scope="col"></th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for t in task %}
+      <tr>
+        <td>{{ t.name }}</td>
+        <td class="text-break">{{ t.desc }}</td>
+        <td>{{ t.date_created  | date:"h:i A" }}</td>
+        <td><a href="{% url 'del_task' t.id %}">
+           <i class="fa fa-trash"></i></a></td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock content %}

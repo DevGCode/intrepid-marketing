@@ -1,0 +1,20 @@
+{% extends "adminarea/base.html" %} {% block content %}
+
+<h3 class="text-center">Progress Reports</h3>
+<hr />
+{% for report in reports %}
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <a href="{% url 'report-detail' report.id %}"
+        >{{ report.user.username }}</a
+      >
+    </div>
+    <div class="col">
+      <p>{{ report.id }}</p>
+    </div>
+  </div>
+</div>
+<br />
+<hr />
+{% endfor %} {% endblock content %}

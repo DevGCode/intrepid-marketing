@@ -1,0 +1,96 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+
+
+{% if message_name %}
+  <div class="alert alert-success text-center" role="alert" style="margin-bottom:-10%;">
+    Thank you {{ message_name|title }} for your requesting a call. A member of our sales team will be in touch shortly!
+  </div>
+{% endif %}
+
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" crossorigin="anonymous"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
+<script>
+$(function(){
+   $('.date-withicon').datepicker({
+      format: 'mm-dd-yyyy'
+    });
+});
+</script>
+
+
+ 
+
+    <!-- Hero Section-->
+    <section id="hero" class="hero">
+      <div class="container" data-aos="zoom-in" data-aos-delay="200">
+        <ul class="breadcrumb">
+          <li class="breadcrumb-item"><a class="icon-yellow" href="{% url 'home' %}">Home</a></li>
+          <li class="breadcrumb-item active">What we Do</li>
+        </ul>
+        <h1>Why Intrepid Marketing?</span></h1>
+        <p class="text-hero" 
+        style="background-color: #f6b725;
+        width:58%;
+        padding:.75%;
+        padding-left:2%;">
+        We love watching our clients succeed. It's as simple as that.
+        </p>  
+      </div>
+    </section>
+      
+    <section class="padding-small bg-gray" id="message">
+      <div class="container" data-aos="fade-up"> 
+        <div class="row">
+          <div class="col-md-12"> 
+            <h2 class="text-center mb-3">Request a Phone Call</h2>
+            <form style="background-color:#fff; padding:8%;" action="{% url 'referral' user.pk %}" method="POST" role="form" class="custom-form form">
+              {% csrf_token %}		 
+              <div class="form-row">
+
+                <div class="col-md-6 form-group">
+                  <input type="text" name="name" class="form-control" id="name" placeholder="Your Name" data-rule="minlen:4" data-msg="Please enter at least 4 chars" />
+                 </div>
+
+                <div class="col-md-6 form-group">
+                  <input type="tel" class="form-control" name="phone" id="phone" placeholder="Your Best Phone Number" data-rule="email" data-msg="Please enter a valid email" />
+                 </div>
+
+                 <div class="col-md-6 form-group">
+                <input type="text" class="form-control" name="url" id="subject" placeholder="Your Website URL" data-rule="minlen:4" data-msg="Please enter at least 8 chars of subject" />
+               </div>
+
+              <div class="col-md-6 form-group">
+                    <div class="input-group date" data-provide="datepicker">
+                        <input name="date" type="text" class="form-control date-withicon" placeholder="When should we call you" required/>
+                        <div class="input-group-addon">
+                        <!-- <i class="fa fa-calendar"></i> -->
+                    </div>
+                </div>
+
+            </div>
+
+               </div>
+               <!-- <input type="text" class="invisible" name="user" value="{{ user.id }}" /> -->
+               <div class="text-center">
+               <button type="submit" class="btn btn-primary">Get Phone Call</button>
+               </div>
+              </form>
+
+          </div>
+        </div>
+      </div>
+    </section>
+
+     
+
+
+
+
+{% endblock content %}

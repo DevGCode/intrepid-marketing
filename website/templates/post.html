@@ -1,0 +1,80 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+
+    <!-- Hero Section-->
+    <section style="background: linear-gradient(0deg, rgba(26, 15, 29, 0.521), rgba(22, 17, 27, 0.432)),url('{{ post.thumbnail.url }}') no-repeat;" class="hero">
+      <div class="container" data-aos="zoom-in" data-aos-delay="200">
+        <ul class="breadcrumb">
+          <li class="breadcrumb-item"><a class="icon-yellow" href="{% url 'home' %}">Home</a></li>
+          <li class="breadcrumb-item"><a class="icon-yellow" href="{% url 'post-list' %}">Blog</a></li>
+          <li class="breadcrumb-item active">{{ post.title }}</li>
+        </ul>
+        <h1>{{ post.title }}</h1>
+        <p class="text-hero">
+          {{ post.overview }}
+        </p>
+      </div>
+    </section>
+    <div class="container" data-aos="fade-up">
+      <div class="row">
+        <div class="col-md-12">
+          {% for cat in post_categories %}
+          <p class="mr-2">{{ cat.title }}</p>
+          {% endfor %}
+        </div>
+        <main class="col-lg-8">
+          <div class="text-content"> 
+            {{ post.content|safe }}
+          </div>
+           
+          
+        </main>
+        <aside class="col-lg-4">
+          {% include 'blog-search.html' %}
+          <!-- Widget [Latest Posts Widget] -->
+          <div class="widget latest-posts">
+            <header>
+              <h3 class="has-lines"><small>Latest Posts</small>Recent Blog Posts</h3>
+            </header>
+            <div class="blog-posts">
+                {% for post in most_recent %}
+                <a href="{% url 'post-detail' post.pk %}">
+                <div class="post d-flex align-items-center">
+                  <div class="image"><img src="{{ post.thumbnail.url }}" alt="..." class="img-fluid rounded-circle"></div>
+                  <div class="title"><strong>{{ post.title }}</strong><span class="date">{{ post.timestamp }}</span></div>
+                </div>
+                </a>
+                <a href="{% url 'post-detail' post.pk %}">
+                {% endfor %}
+               
+            </div>
+          </div>
+          <!-- Widget [Categories Widget]-->
+          <div class="widget categories">
+            <header>
+              <h3 class="has-lines"><small>Categories</small>Blog Post Categories</h3>
+            </header>
+            {% for cat in categories %}
+                <div class="category justify-content-between">
+                  <a href="{% url 'post-category-detail' cat.pk %}">{{ cat.title }}</a>
+                </div>
+            {% endfor %}
+          </div>
+
+
+          {% include 'audit.html' %}
+  
+        </aside>
+      </div>
+    </div>
+  
+
+
+
+ 
+
+              
+    {% endblock content %}

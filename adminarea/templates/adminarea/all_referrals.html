@@ -1,0 +1,42 @@
+{% extends 'adminarea/base.html' %} {% block content %}
+{% if converted_referrals %}
+{% for referral in converted_referrals %}
+<p class="text-center mt-5 text-success">Converted</p>
+<hr />
+<div class="container">
+  <div class="row">
+    <div class="col mt-4">
+      <p>Referral ID: <b>{{ referral.id }}</b></p>
+    </div>
+    <div class="col mt-4">
+      <a
+        class="btn btn-outline-primary"
+        href="{% url 'referral-detail' referral.id %}"
+        >See Details</a
+      >
+    </div>
+  </div>
+</div>
+<br />
+<hr />
+{% endfor %} {% endif %} {% if referrals %}
+<p class="text-center mt-5 text-danger">Not Converted</p>
+<hr />
+{% for referral in referrals %}
+<div class="container">
+  <div class="row">
+    <div class="col mt-4">
+      <p>Referral ID: <b>{{ referral.id }}</b></p>
+    </div>
+    <div class="col mt-4">
+      <a
+        class="btn btn-outline-primary"
+        href="{% url 'referral-detail' referral.id %}"
+        >See Details</a
+      >
+    </div>
+  </div>
+</div>
+<br />
+<hr />
+{% endfor %} {% endif %} {% endblock content %}

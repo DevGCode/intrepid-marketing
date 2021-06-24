@@ -1,0 +1,39 @@
+{% extends 'adminarea/base.html' %} {% block content %}
+
+<h3 class="text-center">Referral Details</h3>
+<hr />
+
+<div class="container w-100 d-flex justify-content-center mt-4">
+  <table class="my-table w-100 text-center">
+    <thead>
+      <tr class="text-center">
+        <th scope="col">#</th>
+        <th scope="col">Username</th>
+        <th scope="col">Name</th>
+        <th scope="col">Phone</th>
+        <th scope="col">Preferred Call Date</th>
+        <th scope="col">Monthly Revenue</th>
+        <th scope="col"></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th scope="row">{{ referral.id }}</th>
+        <td>{{ referral.user.username }}</td>
+        <td>{{ referral.name }}</td>
+        <td><a href="tel:{{ referral.phone }}">{{ referral.phone }}</a></td>
+        <td>{{ referral.call_date }}</td>
+        <td>{{ referral.monthly_revenue }}</td>
+        <td>
+          <a
+            class="btn btn-primary"
+            href="{% url 'update-referral' referral.id %}"
+            >Update</a
+          >
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+{% endblock content %}

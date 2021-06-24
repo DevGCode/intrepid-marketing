@@ -1,0 +1,107 @@
+{% extends 'base.html' %} {% load static %} {% block content %} {% if message %}
+<div
+  class="alert alert-success text-center"
+  role="alert"
+  style="margin-bottom: -10%"
+>
+  Thank you {{ message_name|title }} for your interest in Intrepid Marketing! We
+  will be in touch shortly.
+</div>
+{% endif %}
+
+<!-- Hero Section-->
+<section id="portfolioPhoto" class="hero">
+  <div class="container" data-aos="zoom-in" data-aos-delay="200">
+    <ul class="breadcrumb">
+      <li class="breadcrumb-item">
+        <a class="icon-yellow" href="{% url 'home' %}">Home</a>
+      </li>
+      <li class="breadcrumb-item active">Request Portfolio</li>
+    </ul>
+    <h1 style="text-shadow: 2px 2px #000">Request our Portfolio</h1>
+    <p
+      class="text-hero"
+      style="
+        background-color: #f6b725;
+        color: #000;
+        font-weight: 400;
+        width: 66%;
+        padding: 0.75%;
+        padding-left: 2%;
+      "
+    >
+      Find out how we've helped small businesses like yours succeed.
+    </p>
+  </div>
+</section>
+
+<section class="padding-small bg-gray">
+  <div class="container" data-aos="fade-up">
+    <div class="row">
+      <div class="col-md-12">
+        <h2 class="text-center mb-3">Request our Portfolio</h2>
+        <form
+          style="background-color: #fff; padding: 8%"
+          action="{% url 'request-portfolio' %}"
+          method="POST"
+          role="form"
+          class="custom-form form"
+        >
+          {% csrf_token %}
+          <div class="form-row">
+            <div class="col-md-6 form-group">
+              <input
+                type="text"
+                name="name"
+                class="form-control"
+                id="name"
+                placeholder="Your Name"
+                data-rule="minlen:4"
+                data-msg="Please enter at least 4 chars"
+              />
+            </div>
+            <div class="col-md-6 form-group">
+              <input
+                type="email"
+                class="form-control"
+                name="email"
+                id="email"
+                placeholder="Your Email"
+                data-rule="email"
+                data-msg="Please enter a valid email"
+              />
+            </div>
+          </div>
+          <div class="form-group">
+            <input
+              type="text"
+              class="form-control"
+              name="url"
+              id="subject"
+              placeholder="Your Website URL"
+              data-rule="minlen:4"
+              data-msg="Please enter at least 8 chars of subject"
+            />
+          </div>
+          <div class="form-group">
+            <textarea
+              class="form-control"
+              name="message"
+              rows="5"
+              data-rule="required"
+              data-msg="Write your message here"
+              placeholder="Write your message here"
+            ></textarea>
+          </div>
+          <div class="text-center">
+            <button type="submit" class="btn btn-info">
+              Request Portfolio
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% endblock content %}

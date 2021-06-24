@@ -1,0 +1,182 @@
+{% extends "adminarea/base.html" %} {% block content %}
+<div class="container">
+  <div class="row mb-4">
+    <div class="col">
+      {% for product in products %}
+      <a
+        href="{% url 'toggle_product' product.id %}"
+        class="btn btn-outline-success"
+        >{{ product.name }}</a
+      >
+      {% endfor %}
+      <a href="{% url 'website_leads' %}" class="btn btn-outline-success"
+        >Website Leads</a
+      >
+      <a href="{% url 'client_leads' %}" class="btn btn-outline-success"
+        >Client Referrals</a
+      >
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-5 order-md-2 mb-4">
+      <div class="card mt-4 text-center">
+        <h5 class="card-header">
+          <i class="fa fa-cloud-upload text-primary" aria-hidden="true"></i> Add
+          Bulk Leads
+        </h5>
+        <form
+          action="{% url 'admin-dashboard' %}"
+          method="POST"
+          enctype="multipart/form-data"
+          class="search-form"
+        >
+          {% csrf_token %}
+          <div class="form-group">
+            <input type="file" name="csv_file" class="form-control" />
+            <button type="submit" class="btn btn-outline-primary btn-block">
+              Upload CSV
+            </button>
+          </div>
+        </form>
+      </div>
+
+      <div class="card mt-4 text-center">
+        <h5 class="card-header">
+          <i class="fa fa-plus-square text-primary" aria-hidden="true"></i>
+          Create New Lead
+        </h5>
+        <a href="{% url 'create_lead' %}" class="btn btn-outline-danger"
+          >New Lead</a
+        >
+      </div>
+    </div>
+
+    <div class="col-md-7 order-md-1">
+      {% for lead in leads %} {% if lead.call_list %}
+      {% if lead.customer == False %}
+      <div class="card mb-4">
+        <h5 class="card-header">
+          <!-- <b>Lead #{{ lead.id }}</b> -->
+          <b
+            >{{ lead.business_name }} <small>{{ lead.business_type }}</small></b
+          >
+          <a
+            href="tel:{{lead.phone_number}}"
+            class="float-right btn btn-success btn-lg call-customer-button"
+          >
+            <i class="fa fa-volume-control-phone"></i> Call
+          </a>
+          <a class="text-small mt-3" href="{% url 'remove' lead.id %}"
+            ><i class="text-danger fa fa-times"></i> Remove</a
+          >
+
+          <a class="text-small mt-3" href="{% url 'add' lead.id %}"
+            ><i class="text-success fa fa-check"></i> Add as Client</a
+          >
+        </h5>
+
+        <div class="card-body">
+          <div class="row">
+            <div class="col">
+              <div class="row">
+                <div class="col-md-6" style="margin-top: -3%">
+                  <form action="{% url 'get-weather' %}" method="POST">
+                    {% csrf_token %}
+                    <input
+                      type="text"
+                      class="invisible"
+                      name="weather_city"
+                      value="{{ lead.city }}"
+                    />
+                    <button
+                      id="weather"
+                      type="submit"
+                      class="btn-block btn btn-outline-primary"
+                    >
+                      <i class="fa fa-cloud"></i> Weather
+                    </button>
+                  </form>
+                </div>
+
+                <div class="col-md-6 mt-3">
+                  <a
+                    href="{% url 'update-lead' lead.pk %}"
+                    class="btn-block btn btn-outline-primary mb-4"
+                  >
+                    <i class="fa fa-info"></i> Update
+                  </a>
+                </div>
+              </div>
+              <hr />
+              <p><strong>Agent:</strong> {{ lead.agent }}</p>
+              <p><strong>Name:</strong> {{ lead.name }}</p>
+              <p><strong>Business Name:</strong> {{ lead.business_name }}</p>
+              <p><strong>Business Type:</strong> {{ lead.business_type }}</p>
+              <p><strong>City:</strong> {{ lead.city }}</p>
+              <p>
+                <strong>Website:</strong>
+                <a
+                  href="{{ lead.url }}"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  >{{ lead.url }}</a
+                >
+              </p>
+              <!-- <p><strong>Phone number:</strong> {{ lead.phone_number.as_international }}</p> -->
+              <p>
+                <strong>Phone number:</strong> {{
+                lead.phone_number.as_international }}
+              </p>
+              <p><strong>Lead Since:</strong> {{ lead.timestamp }}</p>
+              <p><strong>Product:</strong> {{ lead.product }}</p>
+              <hr />
+              <p><strong>Notepad:</strong></p>
+              {{ lead.note|linebreaks }}
+            </div>
+          </div>
+        </div>
+      </div>
+      {% endif %}
+      {% endif %}
+
+       {% endfor %}
+    </div>
+  </div>
+</div>
+
+<!-- Success message -->
+{% if csv %}
+<script>
+  myfunc();
+
+  function myfunc() {
+    window.alert(
+      "Nice! Your Leads have been saved! Now call them and make some sales."
+    );
+  }
+</script>
+{% endif %}
+
+<!-- Success message -->
+{% if new_lead %}
+<script>
+  myfunc();
+
+  function myfunc() {
+    window.alert(
+      "Nice! Your new Lead has been created! Now call them and make some sales."
+    );
+  }
+</script>
+{% endif %} {% if todays_weather %}
+<script>
+  window.alert("The weather is {{ todays_weather }}");
+</script>
+{% endif %} {% if lead %}
+<script>
+  window.alert(
+    'You just removed {{ lead.business_name }} from the "Call list" '
+  );
+</script>
+{% endif %} {% endblock %}

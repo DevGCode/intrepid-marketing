@@ -1,0 +1,191 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+      integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z"
+      crossorigin="anonymous"
+    />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+
+    <link rel="stylesheet" href="{% static 'crm/main.css' %}" />
+
+    <link rel="stylesheet" href="{% static 'website/css/style.blue.css' %}" />
+    <!-- Font Awesome CSS-->
+    <link
+      rel="stylesheet"
+      href="{% static 'website/css/font-awesome.min.css' %}"
+    />
+    <!-- Custom Font Icons CSS-->
+    <link
+      rel="stylesheet"
+      href="{% static 'website/css/custom-fonticons.css' %}"
+    />
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <title>Intrepid Marketing - User Area</title>
+
+    <script src="{% static 'website/js/push.min.js' %}"></script>
+  </head>
+
+  <body>
+    <div id="wrapper">
+      <div id="sidebar-wrapper">
+        <ul class="sidebar-nav">
+          <li class="sidebar-brand mt-4 mb-4">
+            <img
+              style="width: 70%"
+              src="{% static 'website/img/logo-white.png' %}"
+              alt=""
+            />
+          </li>
+          <li>
+            <a href="{% url 'user-profile' %}"
+              ><i class="fa fa-tachometer"></i> Dashboard</a
+            >
+          </li>
+          <li>
+            <a href="{% url 'user-billing' %}"
+              ><i class="fa fa-dollar"></i> Billing</a
+            >
+          </li>
+
+          {% if billing_count %}
+          <p id="billing-count">{{billing_count}}</p>
+          {% endif %}
+
+          <li>
+            <a href="{% url 'user-support' %}"
+              ><i class="fa fa-support"></i> Support
+            </a>
+          </li>
+
+          {% if inbox_count %}
+          <p id="support-count">{{inbox_count}}</p>
+          {% endif %}
+
+          <li>
+            <a href="{% url 'referrals' %}"
+              ><i class="fa fa-money"></i> Referrals</a
+            >
+          </li>
+
+          {% if referral_count %}
+          <p id="referral-count">{{ referral_count }}</p>
+          {% endif %}
+
+          <li>
+            <a href="{% url 'signout' %}"
+              ><i class="fa fa-sign-out"></i> Sign Out</a
+            >
+          </li>
+
+          <li style="background-color: #f6b725; margin-top: 3%">
+            {% for promo in current_promo %}
+            <a
+              style="color: #000"
+              data-toggle="modal"
+              data-target="#exampleModal"
+              ><i class="fa fa-bell-o"></i> {{ promo.description }}</a
+            >
+            {% endfor %}
+          </li>
+        </ul>
+      </div>
+      <div id="page-content-wrapper">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-lg-12">{% block content %} {% endblock %}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal -->
+    <div
+      class="modal fade"
+      id="exampleModal"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body text-center">
+            <h3>Intrepid Promotionals</h3>
+            <hr style="width: 50%" />
+            {% for promo in current_promo %}
+            <h4><b>{{ promo.description }}</b></h4>
+            <h5 class="mt-3">
+              Promo Code: <b class="text-info">{{ promo.code }}</b>
+            </h5>
+            <p><i>Ends {{ promo.end_date|date:"M d, Y" }}</i></p>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- preloader -->
+    <div id="preloader"></div>
+
+    <script>
+      // Preloader
+      $(window).on("load", function () {
+        if ($("#preloader").length) {
+          $("#preloader")
+            .delay(100)
+            .fadeOut("slow", function () {
+              $(this).remove();
+            });
+        }
+      });
+    </script>
+
+    <!-- modal -->
+    <script>
+      $("#myModal").on("shown.bs.modal", function () {
+        $("#myInput").trigger("focus");
+      });
+    </script>
+
+    <script
+      src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+      integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+      integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+      integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>

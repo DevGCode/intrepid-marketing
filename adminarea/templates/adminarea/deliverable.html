@@ -1,0 +1,17 @@
+{% extends "adminarea/base.html" %} {% block content %}
+
+<h3 class="text-center">Deliverable Details</h3>
+<hr />
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <p>{{ deliverable.user.username }}</p>
+      <p>{{ deliverable.title }}</p>
+      <a href="{{report.url}}">View</a>
+    </div>
+  </div>
+</div>
+<br />
+<hr />
+
+{% endblock content %}

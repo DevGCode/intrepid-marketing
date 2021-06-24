@@ -1,0 +1,95 @@
+{% extends "adminarea/base.html" %} {% block content %}
+<div class="container">
+  <div class="row mb-4">
+    <div class="col">
+      {% for product in products %}
+      <a
+        href="{% url 'toggle_product' product.id %}"
+        class="btn btn-outline-success"
+        >{{ product.name }}</a
+      >
+      {% endfor %}
+      <a href="{% url 'website_leads' %}" class="btn btn-outline-success"
+        >Website Leads</a
+      >
+      <a href="{% url 'client_leads' %}" class="btn btn-outline-success"
+        >Client Referrals</a
+      >
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-5 order-md-2 mb-4">
+      <div class="card mt-4 text-center">
+        <h5 class="card-header">
+          <i class="fa fa-cloud-upload text-primary" aria-hidden="true"></i> Add
+          Bulk Leads
+        </h5>
+        <form
+          action="{% url 'admin-dashboard' %}"
+          method="POST"
+          enctype="multipart/form-data"
+          class="search-form"
+        >
+          {% csrf_token %}
+          <div class="form-group">
+            <input type="file" name="csv_file" class="form-control" />
+            <button type="submit" class="btn btn-outline-primary btn-block">
+              Upload CSV
+            </button>
+          </div>
+        </form>
+      </div>
+
+      <div class="card mt-4 text-center">
+        <h5 class="card-header">
+          <i class="fa fa-plus-square text-primary" aria-hidden="true"></i>
+          Create New Lead
+        </h5>
+        <a href="{% url 'create_lead' %}" class="btn btn-outline-danger"
+          >New Lead</a
+        >
+      </div>
+    </div>
+
+    <div class="col-md-7 order-md-1">
+      {% for referral in referrals %} {% if referral.converted == False %}
+      <div class="card mb-4">
+        <h5 class="card-header">
+          <b>Referred By: {{ referral.user.username }}</b>
+          <a
+            href="tel:{{lead.phone_number}}"
+            class="float-right btn btn-success btn-lg call-customer-button"
+          >
+            <i class="fa fa-volume-control-phone"></i> Call
+          </a>
+        </h5>
+
+        <div class="card-body">
+          <div class="row">
+            <div class="col">
+              <p><strong>Name:</strong> {{ referral.name }}</p>
+              <p><strong>Phone:</strong> {{ referral.phone }}</p>
+              <p><strong>Call Date:</strong> {{ referral.call_date }}</p>
+              <p><strong>Converted:</strong> {{ referral.converted }}</p>
+              <p><strong>Read:</strong> {{ referral.read }}</p>
+              <p>
+                <strong>Monthly Revenue:</strong> {{ referral.monthly_revenue }}
+              </p>
+            </div>
+          </div>
+          <a
+            href="{% url 'referral-detail' referral.id %}"
+            class="btn btn-outline-success"
+            >Update</a
+          >
+        </div>
+      </div>
+      {% else %}
+      <p class="text-center"><b>No referrals yet!</b></p>
+      {% endif %} {% endfor %}
+    </div>
+  </div>
+</div>
+
+{% endblock %}

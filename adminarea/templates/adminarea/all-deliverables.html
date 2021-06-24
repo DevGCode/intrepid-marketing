@@ -1,0 +1,20 @@
+{% extends 'adminarea/base.html' %} {% block content %}
+
+<h3 class="text-center">Client Deliverables</h3>
+<hr />
+{% for deliverable in deliverables %}
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <a href="{% url 'deliverable-detail' deliverable.id %}"
+        >{{ deliverable.user.username }}</a
+      >
+    </div>
+    <div class="col">
+      <p>{{ deliverable.id }}</p>
+    </div>
+  </div>
+</div>
+<br />
+<hr />
+{% endfor %} {% endblock content %}

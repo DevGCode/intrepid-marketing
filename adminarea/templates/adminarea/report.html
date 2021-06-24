@@ -1,0 +1,103 @@
+{% extends "adminarea/base.html" %} {% block content %}
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.4/jspdf.debug.js"></script>
+
+<div class="container">
+  <div class="row">
+    <h1>Report Dashboard</h1>
+    <hr />
+    <div class="col">
+      <a
+        href="javascript:generatePDF()"
+        class="btn btn-primary ml-2 mb-3 pull-right"
+        >Download PDF</a
+      >
+      <!-- <a class="btn btn-primary disabled mb-3 pull-right">Something else</a> -->
+    </div>
+  </div>
+
+  <div id="print" class="p-5 m-4" style="background-color: #ddd">
+    {% for lead in agent_leads %}
+    <p>
+      <b>{{ lead.agent.name }}</b> - {{ lead.business_name }} - {% if
+      lead.customer == True %}
+      <span class="text-primary">Current Customer</span>
+      {% else %}
+      <span class="text-danger">Not a Customer</span>
+      {% endif %}
+    </p>
+    <hr />
+    {% endfor %} {% if open_leads %}
+    <h3>Open Leads</h3>
+    {% for lead in open_leads %}
+    <p><i class="text-danger fa fa-times"></i> {{ lead.business_name }}</p>
+    {% endfor %} {% endif %} {% if closed_leads %}
+    <h3>Closed Accounts</h3>
+    {% for lead in closed_leads %}
+    <p><i class="text-primary fa fa-check"></i> {{ lead.business_name }}</p>
+    {% endfor %} {% endif %}
+  </div>
+
+  <form action="{% url 'reports' %}" method="POST">
+    {% csrf_token %}
+
+    <!-- Filter by agent -->
+    <div class="form-group col-md-3">
+      <label for="agent">Filter By Agent</label>
+      <select name="agent" id="agent" class="form-control">
+        {% for agent in agents %}
+        <option value="{{ agent.id }}">{{ agent.name }}</option>
+        {% endfor %}
+      </select>
+    </div>
+
+    <!-- Filter by closed -->
+    <div class="form-group col-md-3">
+      <label for="closed">Filter By Closed Account</label>
+      <select name="closed" id="closed" class="form-control">
+        <option value="1">Closed Account</option>
+        <option value="2">Open Account</option>
+      </select>
+    </div>
+
+    <!-- <div class="form-group col-md-3">
+            <label for="month">Filter By Month</label>
+            <select name="month" id="month" class="form-control">
+                <option>January</option>
+                <option>February</option>
+                <option>March</option>
+                <option>April</option>
+                <option>May</option>
+                <option>June</option>
+                <option>July</option>
+                <option>August</option>
+                <option>September</option>
+                <option>October</option>
+                <option>November</option>
+                <option>December</option>  
+            </select>
+          </div>   -->
+
+    <button type="submit" class="btn btn-outline-primary">Filter</button>
+  </form>
+</div>
+
+{% if agent %}
+<script>
+  //https://qawithexperts.com/article/javascript/easy-way-to-convert-html-to-pdf-using-javascript/335
+  function generatePDF() {
+    var doc = new jsPDF(); //create jsPDF object
+    doc.fromHTML(
+      document.getElementById("print"), // page element which you want to print as PDF
+      15,
+      15,
+      {
+        width: 170, //set width
+      },
+      function (a) {
+        doc.save("{{ agent.name }}.pdf"); // todo: save file with dynamic name
+      }
+    );
+  }
+</script>
+{% endif %} {% endblock %}

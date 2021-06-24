@@ -1,0 +1,168 @@
+{% extends 'userarea/main.html' %} {% block content %} {% load static %}
+{% if created %}
+<script>
+  permission = Push.Permission.has();
+
+  if (permission) {
+    Push.create("Thank you for creating a support ticket.", {
+      body: "Help is on the way!",
+      icon: '{% static "website/img/user.png" %}',
+      timeout: 4000,
+      onClick: function () {
+        window.focus();
+        this.close();
+      },
+    });
+  } else {
+    window.alert(
+      "Thank you for creating a support ticket. Help is on the way!"
+    );
+  }
+
+  Push.create("Thank you for creating a support ticket.", {
+    body: "Help is on the way!",
+    icon: '{% static "website/img/user.png" %}',
+    timeout: 4000,
+    onClick: function () {
+      window.focus();
+      this.close();
+    },
+  });
+</script>
+{% endif %} {% include 'userarea/header.html' %}
+
+<div class="justify-content-md-center mt-3">
+  <h3 class="text-center">Get Help in So Many Ways</h3>
+  <hr />
+
+  <div class="row">
+    <div class="col-md-12 mb-5">
+      {% if tickets %}
+      <a href="#tickets" class="btn btn-primary">See all Tickets</a>
+      {% endif %}
+    </div>
+  </div>
+
+  <div class="container" data-aos="fade-up">
+    <div class="row">
+      <div class="col-md-4" data-aos="zoom-in" data-aos-delay="100">
+        <div class="contact-icon">
+          <i class="fa fa-envelope-o"></i>
+        </div>
+        <h3>Create a Ticket</h3>
+        <p>Create a support ticket <a href="#message">below</a>.</p>
+        <p><b>Or email directly:</b></p>
+        <a href="mailto:hello@intrepidapplications.com"
+          >hello@intrepidapplications.com</a
+        >
+      </div>
+
+      <div class="col-md-4" data-aos="zoom-in" data-aos-delay="100">
+        <div class="contact-icon">
+          <i class="fa fa-phone-square"></i>
+        </div>
+        <h3>Call us</h3>
+        <p>
+          We are available for support or sales calls Monday through Friday, 9-5
+          PST
+        </p>
+        <a href="tel:7078830266">(707) 883-0266</a>
+      </div>
+
+      <div class="col-md-4" data-aos="zoom-in" data-aos-delay="100">
+        <div class="contact-icon">
+          <i class="fa fa-comment-o"></i>
+        </div>
+        <h3>Live Chat</h3>
+        <p>Use the live chat to speak <br />with a member of our team.</p>
+      </div>
+    </div>
+  </div>
+
+  <section class="padding-small mt-5" id="message">
+    <div class="container" data-aos="fade-up">
+      <div class="row">
+        <div class="col-md-12">
+          <h2 class="text-center mb-3">Create a Support Ticket</h2>
+          <form
+            style="background-color: #fff; padding: 8%"
+            action="{% url 'user-support' %}"
+            method="POST"
+            role="form"
+            class="custom-form form"
+          >
+            {% csrf_token %}
+            <div class="form-row">
+              <div class="col-md-6 form-group">
+                <input
+                  type="text"
+                  name="summary"
+                  class="form-control"
+                  id="summary"
+                  placeholder="A brief summary of your issue"
+                  data-rule="minlen:4"
+                  data-msg="Please enter at least 4 chars"
+                />
+              </div>
+              <div class="col-md-6 form-group">
+                <input
+                  type="tel"
+                  class="form-control"
+                  name="phone"
+                  id="phone"
+                  placeholder="Your best phone number"
+                  data-msg="Only numbers please"
+                  pattern="^[0-9-\s()]*$"
+                />
+              </div>
+            </div>
+            <div class="form-group">
+              <textarea
+                class="form-control"
+                name="body"
+                rows="6"
+                data-rule="required"
+                data-msg="Please explain in more detail"
+                placeholder="Please explain in more detail"
+              ></textarea>
+            </div>
+            <div class="text-center">
+              <button type="submit" class="btn btn-primary">
+                Create Support Ticket
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <h3 class="text-center">Your Support Tickets</h3>
+  <hr />
+  <div class="container bg-gray p-5">
+    {% if tickets %} {% for ticket in tickets %}
+    <div class="row mb-5 mt-5">
+      <div class="col">
+        <p><b>Subject:</b> {{ ticket.subject|truncatewords:9 }}</p>
+      </div>
+      <div class="col">
+        <p><b>Body:</b> {{ ticket.description|truncatewords:9 }}</p>
+      </div>
+      <div class="col">
+        <p><b>Status:</b> {{ ticket.status }}</p>
+      </div>
+      <div class="col">
+        <a class="btn btn-primary btn-sm" href="{% url 'ticket' ticket.pk %}"
+          ><i class="fa fa-arrow-right"></i> More</a
+        >
+      </div>
+      {% for response in responses %} {% if response.ticket == ticket %}
+      <i class="text-danger fa fa-exclamation"> Unread Response</i>
+      {% endif %} {% endfor %}
+    </div>
+    <hr />
+    {% endfor %} {% endif %}
+  </div>
+
+  {% endblock content %}
+</div>

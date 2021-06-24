@@ -1,0 +1,26 @@
+{% extends 'userarea/main.html' %}
+{% load static %}
+{% block content %}
+
+{% include 'userarea/header.html' %}
+ 
+<div class="justify-content-md-center mt-3">
+    {% if website_info %}
+    <h3 class="text-center">Create a Profile for Your Business</h3>
+    <hr>
+    <div class="container bg-gray p-5">
+        {% for info in website_info %}
+          <h4><b>Profile For:</b> <a href="{{ info.get_absolute_url }}">{{ info.business_name }}</a></h4>
+           <hr>
+        {% endfor %}
+        {% endif %}
+        <div class="container text-center">
+            <a href="{% url 'submit-info' %}" class="btn btn-primary btn-lg mt-5"><i class="fa fa-pencil"></i> Add a Business Profile</a>
+        </div>
+    </div>
+
+
+</div>
+</div>
+
+{% endblock content %}

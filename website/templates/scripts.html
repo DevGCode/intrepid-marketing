@@ -1,0 +1,23 @@
+{% load static %}
+<!-- JavaScript files-->
+<script src="{% static 'website/vendor/jquery/jquery.min.js' %}"></script>
+<script src="{% static 'website/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+<script src="{% static 'website/vendor/jquery.cookie/jquery.cookie.js' %}"></script>
+<script src="{% static 'website/vendor/owl.carousel/owl.carousel.min.js' %}"></script>
+<script src="{% static 'website/vendor/bootstrap-select/js/bootstrap-select.min.js' %}"></script>
+<script src="{% static 'website/vendor/@fancyapps/fancybox/jquery.fancybox.min.js' %}"></script>
+<script src="{% static 'website/js/front.js' %}"></script>
+
+<!-- <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script> -->
+<script src="{% static 'website/aos/aos.js' %}"></script>
+
+<script>
+  AOS.init();
+</script>
+
+<script>
+  // Tooltip
+  $(function () {
+    $('[data-toggle="tooltip"]').tooltip();
+  });
+</script>

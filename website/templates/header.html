@@ -1,0 +1,95 @@
+{% load static %}
+<header class="header">
+  <!-- Top bar-->
+  <div class="top-bar">
+    <div class="container">
+      <div class="content-holder d-flex justify-content-between">
+        <div class="info d-flex">
+          <div class="dropdowns d-flex mr-5">
+            <a href="{% url 'submit-info' %}"
+              >Submit Info<i class="fa fa-plus"></i
+            ></a>
+          </div>
+          <div class="contact d-flex"></div>
+        </div>
+        <div class="CTAs">
+          {% if user.is_authenticated %}
+          <a href="{% url 'signout' %}" class="login"
+            ><i class="fa fa-sign-out"></i
+            ><span class="d-none d-md-inline">Logout</span></a
+          >
+          {% else %}
+          <a href="{% url 'signin' %}" class="login"
+            ><i class="fa fa-sign-in"></i
+            ><span class="d-none d-md-inline">Login</span></a
+          >
+          <a href="{% url 'signup' %}" class="login">
+            <i class="fa fa-user"></i
+            ><span class="d-none d-md-inline">Register</span></a
+          >
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Main Navbar-->
+  <nav class="navbar navbar-expand-lg">
+    <div class="container">
+      <!-- Navbar Brand -->
+      <a href="{% url 'home' %}" class="navbar-brand"
+        ><img
+          style="width: 85%"
+          src="{% static 'website/img/logo.png' %}"
+          alt="..."
+      /></a>
+      <!-- Toggle Button-->
+      <button
+        type="button"
+        data-toggle="collapse"
+        data-target="#navbarcollapse"
+        aria-controls="navbarcollapse"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+        class="navbar-toggler"
+      >
+        <span>Menu</span><i class="fa fa-bars"></i>
+      </button>
+      <!-- Navbar Menu -->
+      <div id="navbarcollapse" class="collapse navbar-collapse">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item dropdown">
+            <a
+              id="navbarDropdownMenuLink"
+              href="http://example.com"
+              data-toggle="dropdown"
+              aria-haspopup="true"
+              aria-expanded="false"
+              class="nav-link dropdown-toggle"
+              >Services</a
+            >
+            <div aria-labelledby="navbarDropdownMenuLink" class="dropdown-menu">
+              {% for service in nav_services %}
+              <a
+                href="{% url 'service-detail' service.pk %}"
+                class="dropdown-item"
+                >{{service.title}}</a
+              >
+              {% endfor %}
+            </div>
+          </li>
+          <li class="nav-item">
+            <a href="{% url 'post-list' %}" class="nav-link">Blog</a>
+          </li>
+          <li class="nav-item">
+            <a href="{% url 'contact' %}" class="nav-link">Contact</a>
+          </li>
+        </ul>
+        <a
+          href="{% url 'free-website-audit' %}"
+          class="btn navbar-btn btn-info mt-3 mt-lg-0 ml-lg-3"
+          >Free Website Audit</a
+        >
+      </div>
+    </div>
+  </nav>
+</header>

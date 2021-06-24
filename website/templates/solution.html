@@ -1,0 +1,37 @@
+{% extends 'base.html' %} {% load static %} {% block content %}
+
+<div class="listing-categories-page">
+  <!-- Hero Section-->
+  <section
+    style="background: url('{{ solution.thumbnail.url }}') no-repeat;"
+    class="hero"
+  >
+    <div class="container" data-aos="zoom-in" data-aos-delay="200">
+      <ul class="breadcrumb">
+        <li class="breadcrumb-item">
+          <a class="icon-yellow" href="{% url 'home' %}">Home</a>
+        </li>
+        <li class="breadcrumb-item active">{{ solution.title }}</li>
+      </ul>
+      <h1 style="text-shadow: 2px 2px #000">{{ solution.title }}</h1>
+      <p
+        class="text-hero"
+        style="
+          background-color: #f6b725;
+          color: #000;
+          font-weight: 400;
+          width: 33%;
+          padding: 0.75%;
+          padding-left: 2%;
+        "
+      >
+        Discover how simple it really is.
+      </p>
+    </div>
+  </section>
+  <section class="mt-5 mb-5 p-5">
+    <div class="container" data-aos="fade-up">{{ solution.body|safe }}</div>
+  </section>
+</div>
+
+{% endblock content %}

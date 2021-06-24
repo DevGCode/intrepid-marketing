@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+
+
+<body class="login-body">
+    <div class="container login-container "">
+	<div class="row text-center">
+        <div class="col-xl-6 col-md-8 col-sm-8 mx-auto">
+            <div class="login-form">
+                {% for message in messages %}
+                <div class="alert alert-info text-center" role="alert">
+                    {{message}}
+                </div>
+                {% endfor %}
+                
+                <h3 class="display-4 mt-5">Get Your Client Account</h3>
+
+                <div class="row mt-3" style="margin-left:32%;">
+                    <div class="col-lg-6">
+                      <div
+                        class="box-element form-group"
+                        id="form-wrapper">
+                        <form method="POST">
+                          {% csrf_token %} 
+                          
+                              {{ form.as_p }}
+                             
+                          <button class="btn btn-primary">Get Account</button>
+                        </form>
+                      </div>
+                    </div>
+                  </div>
+            </div>
+        </div>
+    </div>
+    </div>
+
+    <p class="text-center mb-5 mt-3">
+        Already a have a client account? <a href="{% url 'signin' %}">Login Here</a>
+    </p>
+</body>
+
+</html>
+
+
+{% endblock content %}

@@ -1,0 +1,58 @@
+{% extends 'adminarea/base.html' %} {% block content %} {% if created %}
+<div
+  class="alert alert-success text-center"
+  role="alert"
+  style="margin-bottom: -10%"
+>
+  Your ticket response was sent. Keep it up!
+</div>
+{% endif %}
+
+<section class="padding-small bg-gray" id="message">
+  <div class="container" data-aos="fade-up">
+    <div class="row">
+      <div class="col-md-12">
+        <h2 class="text-center mb-3">Respond to a Support Ticket</h2>
+        <form
+          style="background-color: #fff; padding: 8%"
+          action="{% url 'create-response' ticket.id %}"
+          method="POST"
+          role="form"
+          class="custom-form form"
+        >
+          {% csrf_token %}
+          <div class="form-row">
+            <div class="col-md-12 form-group">
+              <input
+                type="text"
+                name="summary"
+                class="form-control"
+                id="summary"
+                placeholder="A brief summary of your issue"
+                data-rule="minlen:4"
+                data-msg="Please enter at least 4 chars"
+              />
+            </div>
+          </div>
+          <div class="form-group">
+            <textarea
+              class="form-control"
+              name="body"
+              rows="6"
+              data-rule="required"
+              data-msg="Please explain in more detail"
+              placeholder="Please explain in more detail"
+            ></textarea>
+          </div>
+          <div class="text-center">
+            <button type="submit" class="btn btn-primary">
+              Submit Response
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% endblock content %}

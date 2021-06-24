@@ -1,0 +1,182 @@
+{% extends 'base.html' %} {% load static %} {% block content %} {% if message %}
+<div
+  class="alert alert-success text-center"
+  role="alert"
+  style="margin-bottom: -10%"
+>
+  Thank you {{ message_name|title }} for your message. A member of our team will
+  be in touch shortly!
+</div>
+{% endif %}
+
+<!-- Hero Section-->
+<section id="contactPhoto" class="hero">
+  <div class="container" data-aos="zoom-in" data-aos-delay="200">
+    <ul class="breadcrumb">
+      <li class="breadcrumb-item">
+        <a class="icon-yellow" href="{% url 'home' %}">Home</a>
+      </li>
+      <li class="breadcrumb-item active">Contact</li>
+    </ul>
+    <h1 style="text-shadow: 2px 2px #000">
+      Contact <span>Intrepid Marketing</span>
+    </h1>
+    <p
+      class="text-hero"
+      style="
+        background-color: #f6b725;
+        color: #000;
+        font-weight: 400;
+        width: 62%;
+        padding: 0.75%;
+        padding-left: 2%;
+      "
+    >
+      Someone is always here to help you with your business goals.
+    </p>
+  </div>
+</section>
+<section class="padding-small">
+  <div class="container" data-aos="fade-up">
+    <div class="row">
+      <div class="col-md-4" data-aos="zoom-in" data-aos-delay="100">
+        <div class="contact-icon">
+          <i class="fa fa-envelope-o"></i>
+        </div>
+        <h3>Email us</h3>
+        <p>Or send us a message <a href="#message">below</a>.</p>
+        <a href="mailto:hello@intrepidapplications.com"
+          >hello@intrepidapplications.com</a
+        >
+      </div>
+
+      <div class="col-md-4" data-aos="zoom-in" data-aos-delay="100">
+        <div class="contact-icon">
+          <i class="fa fa-phone-square"></i>
+        </div>
+        <h3>Call us</h3>
+        <p>
+          We are available for support or sales calls Monday through Friday, 9-5
+          PST
+        </p>
+        <a href="tel:7078830266">(707) 883-0266</a>
+      </div>
+
+      <div class="col-md-4" data-aos="zoom-in" data-aos-delay="100">
+        <div class="contact-icon">
+          <i class="fa fa-comment-o"></i>
+        </div>
+        <h3>Live Chat</h3>
+        <p>Use the live chat to speak <br />with a member of our team.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="padding-small bg-gray" id="message">
+  <div class="container" data-aos="fade-up">
+    <div class="row">
+      <div class="col-md-12">
+        <h2 class="text-center mb-3">Send us a message</h2>
+        <form
+          style="background-color: #fff; padding: 8%"
+          action="{% url 'contact' %}"
+          method="POST"
+          role="form"
+          class="custom-form form"
+        >
+          {% csrf_token %}
+          <div class="form-row">
+            <div class="col-md-6 form-group">
+              <input
+                type="text"
+                name="name"
+                class="form-control"
+                id="name"
+                placeholder="Your Name"
+                data-rule="minlen:4"
+                data-msg="Please enter at least 4 chars"
+              />
+            </div>
+            <div class="col-md-6 form-group">
+              <input
+                type="email"
+                class="form-control"
+                name="email"
+                id="email"
+                placeholder="Your Email"
+                data-rule="email"
+                data-msg="Please enter a valid email"
+              />
+            </div>
+          </div>
+          <div class="form-group">
+            <input
+              type="text"
+              class="form-control"
+              name="url"
+              id="subject"
+              placeholder="Your Website URL"
+              data-rule="minlen:4"
+              data-msg="Please enter at least 8 chars of subject"
+            />
+          </div>
+          <div class="form-group">
+            <textarea
+              class="form-control"
+              name="message"
+              rows="5"
+              data-rule="required"
+              data-msg="Write your message here"
+              placeholder="Write your message here"
+            ></textarea>
+          </div>
+          <div class="text-center">
+            <button type="submit" class="btn btn-primary">Send Message</button>
+          </div>
+        </form>
+
+        <!--             
+            <form style="background-color:#fff; padding:8%;" id="contact-form" method="post" action="contact.php" class="custom-form form">
+              <div class="controls">
+                <div class="row">
+                  <div class="col-sm-6">
+                    <div class="form-group">
+                      <label for="name" class="form-label">Your firstname *</label>
+                      <input type="text" name="name" id="name" placeholder="Enter your firstname" required="required" class="form-control">
+                    </div>
+                  </div>
+                  <div class="col-sm-6">
+                    <div class="form-group">
+                      <label for="surname" class="form-label">Your lastname *</label>
+                      <input type="text" name="surname" id="surname" placeholder="Enter your  lastname" required="required" class="form-control">
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="email" class="form-label">Your email *</label>
+                  <input type="email" name="email" id="email" placeholder="Enter your  email" required="required" class="form-control">
+                </div>
+                <div class="form-group">
+                  <label for="message" class="form-label">Your message for us *</label>
+                  <textarea rows="4" name="message" id="message" placeholder="Enter your message" required="required" class="form-control"></textarea>
+                </div>
+                <button type="submit" ass="btncl btn-outline-primary">Send message</button>
+              </div>
+            </form> -->
+
+        <!-- <div class="social">
+              <ul class="list-inline">
+                <li class="list-inline-item"><a href="#" target="_blank"><i class="fa fa-facebook"></i></a></li>
+                <li class="list-inline-item"><a href="#" target="_blank"><i class="fa fa-twitter"></i></a></li>
+                <li class="list-inline-item"><a href="#" target="_blank"><i class="fa fa-instagram"></i></a></li>
+                <li class="list-inline-item"><a href="#" target="_blank"><i class="fa fa-behance"></i></a></li>
+                <li class="list-inline-item"><a href="#" target="_blank"><i class="fa fa-pinterest">                                             </i></a></li>
+              </ul>
+            </div> -->
+      </div>
+    </div>
+  </div>
+</section>
+
+{% endblock content %}

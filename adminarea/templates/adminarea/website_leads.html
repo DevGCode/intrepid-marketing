@@ -1,0 +1,98 @@
+{% extends "adminarea/base.html" %} {% block content %}
+<div class="container">
+  <div class="row mb-4">
+    <div class="col">
+      {% for product in products %}
+      <a
+        href="{% url 'toggle_product' product.id %}"
+        class="btn btn-outline-success"
+        >{{ product.name }}</a
+      >
+      {% endfor %}
+      <a href="{% url 'website_leads' %}" class="btn btn-outline-success"
+        >Website Leads</a
+      >
+      <a href="{% url 'client_leads' %}" class="btn btn-outline-success"
+        >Client Referrals</a
+      >
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-5 order-md-2 mb-4">
+      <div class="card mt-4 text-center">
+        <h5 class="card-header">
+          <i class="fa fa-cloud-upload text-primary" aria-hidden="true"></i> Add
+          Bulk Leads
+        </h5>
+        <form
+          action="{% url 'admin-dashboard' %}"
+          method="POST"
+          enctype="multipart/form-data"
+          class="search-form"
+        >
+          {% csrf_token %}
+          <div class="form-group">
+            <input type="file" name="csv_file" class="form-control" />
+            <button type="submit" class="btn btn-outline-primary btn-block">
+              Upload CSV
+            </button>
+          </div>
+        </form>
+      </div>
+
+      <div class="card mt-4 text-center">
+        <h5 class="card-header">
+          <i class="fa fa-plus-square text-primary" aria-hidden="true"></i>
+          Create New Lead
+        </h5>
+        <a href="{% url 'create_lead' %}" class="btn btn-outline-danger"
+          >New Lead</a
+        >
+      </div>
+    </div>
+
+    <div class="col-md-7 order-md-1">
+      {% for lead in leads %}
+      <div class="card mb-4">
+        <h5 class="card-header">
+          <!-- <b>Lead #{{ lead.id }}</b> -->
+          <b
+            >Website Audit Lead: {{ lead.name }}
+            <small>{{ lead.date_created }}</small></b
+          >
+          <a
+            href="tel:{{lead.phone_number}}"
+            class="float-right btn btn-success btn-lg call-customer-button"
+          >
+            <i class="fa fa-volume-control-phone"></i> Call
+          </a>
+        </h5>
+
+        <div class="card-body">
+          <div class="row">
+            <div class="col">
+              <p><strong>Name:</strong> {{ lead.name }}</p>
+              <p>
+                <strong>Website:</strong>
+                <a href="{{ lead.website }}">{{ lead.website }}</a>
+              </p>
+              <p><strong>Date:</strong> {{ lead.date_created }}</p>
+              <p>
+                <strong>Phone:</strong>
+                <a href="tel:{{ lead.phone }}">{{ lead.phone }}</a>
+              </p>
+              <p>
+                <strong>Email:</strong>
+                <a href="mailto:{{ lead.email }}">{{ lead.email }}</a>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+{% endblock %}

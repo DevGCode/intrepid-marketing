@@ -1,0 +1,82 @@
+{% extends 'userarea/main.html' %} {% block content %} {% load static %} {% if created %}
+<script>
+  permission = Push.Permission.has();
+
+  if (permission) {
+    Push.create("Your response has been sent.", {
+      body: "Thank you so much!",
+      icon: '{% static "website/img/user.png" %}',
+      timeout: 4000,
+      onClick: function () {
+        window.focus();
+        this.close();
+      },
+    });
+  } else {
+    window.alert("Your response has been sent. Thank you so much!");
+  }
+
+  Push.create("Your response has been sent.", {
+    body: "Thank you so much!",
+    icon: '{% static "website/img/user.png" %}',
+    timeout: 4000,
+    onClick: function () {
+      window.focus();
+      this.close();
+    },
+  });
+</script>
+{% endif %} {% include 'userarea/header.html' %}
+
+<div class="justify-content-md-center mt-3">
+  <h3 class="text-center">Respond to a Ticket</h3>
+  <hr />
+
+  <section class="padding-small bg-gray" id="message">
+    <div class="container" data-aos="fade-up">
+      <div class="row">
+        <div class="col-md-12">
+          <form
+            style="background-color: #fff; padding: 8%"
+            action="{% url 'add-ticket-response' ticket.id %}"
+            method="POST"
+            role="form"
+            class="custom-form form"
+          >
+            {% csrf_token %}
+            <div class="form-row">
+              <div class="col-md-12 form-group">
+                <input
+                  type="text"
+                  name="summary"
+                  class="form-control"
+                  id="summary"
+                  placeholder="A brief summary of your issue"
+                  data-rule="minlen:4"
+                  data-msg="Please enter at least 4 chars"
+                />
+              </div>
+            </div>
+            <div class="form-group">
+              <textarea
+                class="form-control"
+                name="body"
+                rows="6"
+                data-rule="required"
+                data-msg="Please explain in more detail"
+                placeholder="Please explain in more detail"
+              ></textarea>
+            </div>
+            <div class="text-center">
+              <button type="submit" class="btn btn-primary">
+                Submit Response
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+{% endblock content %}

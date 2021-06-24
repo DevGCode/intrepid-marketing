@@ -1,0 +1,45 @@
+{% extends "adminarea/base.html" %}
+{% block content %}
+  <div class="container"> 
+
+    <div class="row mb-4">
+      <div class="col">
+        <a href="{% url 'paused' %}" class="btn btn-outline-primary">Paused Tickets</a>
+        <a href="{% url 'closed' %}" class="btn btn-outline-primary">Closed Tickets</a>
+      </div>
+    </div>
+
+      <div class="col-md-7 order-md-1">
+        {% for ticket in tickets %}
+          <div class="card mb-4">
+            <h5 class="card-header">
+             <!-- <b>Lead #{{ lead.id }}</b> --> 
+             <b>{{ ticket.user.username }} </small></b>
+             <br><br>
+             <a href="tel:{{lead.phone_number}}" class="float-right btn btn-success btn-lg call-customer-button">
+              <i class="fa fa-volume-control-phone"></i> Call
+             </a>
+              <a class="btn btn-outline-primary" href="{% url 'create-response' ticket.id %}">Respond</a>
+            </h5>
+
+            <div class="card-body">
+              <div class="row">
+                <div class="col">
+                  <p><strong>Status:</strong> {{ ticket.status }}</p>
+                  <p><strong>Name:</strong> {{ ticket.user.username }}</p>
+                  <p><strong>Subject:</strong> {{ ticket.subject }}</p>
+                  <p><strong>Message Body:</strong> {{ ticket.description }}</p>
+                  <p><strong>Time Created:</strong> {{ ticket.timestamp }}</p>
+                  <p><strong>Phone Number:</strong> {{ ticket.phone_number }}</p>
+                    
+                </div>
+ 
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+
+{% endblock %}

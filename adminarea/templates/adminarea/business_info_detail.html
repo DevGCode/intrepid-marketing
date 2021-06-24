@@ -1,0 +1,15 @@
+{% extends 'adminarea/base.html' %} {% block content %}
+
+<h2 class="text-center mb-3">Business Info Details</h2>
+<hr />
+
+<p><b>Business Name:</b> {{ info.business_name }}</p>
+<p><b>Username:</b> {{info.user.username}}</p>
+<p><b>Tagline:</b> {{info.tagline}}</p>
+<p><b>Description:</b> {{info.description}}</p>
+<p><b>Address:</b> {{info.address}}</p>
+<p><b>Phone:</b> <a href="tel:{{info.phone}}">{{info.phone}}</a></p>
+<p><b>Email:</b> <a href="mailto:{{info.email}}">{{info.email}}</a></p>
+<p><b>Website:</b> <a href="{{info.website}}">{{info.website}}</a></p>
+
+{% endblock content %}

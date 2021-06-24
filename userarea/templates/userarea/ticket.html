@@ -1,0 +1,65 @@
+{% extends 'userarea/main.html' %} {% block content %} {% load static %} {% include 'userarea/header.html' %}
+
+<div class="justify-content-md-center mt-3">
+  <h3 class="text-center">Your Ticket</h3>
+  <hr />
+
+  <div class="col-md-12 mt-4 mb-4 text-right">
+    <a href="{% url 'add-ticket-response' ticket.id %}" class="btn btn-primary"
+      ><i class="fa fa-pencil"></i> Add a Response</a
+    >
+    <h4 class="text-dark mt-3">
+      <b>Ticket #</b> <span style="color: #0594dd">{{ ticket.id }}</span>
+    </h4>
+  </div>
+
+  <div class="row">
+    <div class="container" data-aos="fade-up">
+      <div class="row">
+        <div class="col-md-6">
+          <p><b>Subject:</b> {{ ticket.subject }}</p>
+          <p><b>Body:</b> {{ ticket.description }}</p>
+        </div>
+
+        <div class="col-md-6">
+          <p><b>Status:</b> {{ ticket.status }}</p>
+          <p><b>Created on:</b> {{ ticket.timestamp }}</p>
+        </div>
+      </div>
+
+      <br />
+
+      {% if responses %}
+
+      <div class="container bg-gray p-5">
+        <h3>Responses:</h3>
+
+        {% for response in responses %}
+        <div class="row mt-3">
+          <div class="col">
+            <p><b>Subject:</b> {{ response.subject }}</p>
+          </div>
+          <div class="col">
+            <p><b>Body:</b> {{ response.description }}</p>
+          </div>
+          <hr />
+          <br />
+          {% if response.read %}
+          <p class="text-success"><i class="fa fa-check"></i> Read</p>
+          {% else %}
+          <a
+            href="{% url 'mark-ticket-as-read' response.id %}"
+            class="text-danger"
+            ><i class="fa fa-times-circle"></i> Mark Read</a
+          >
+          {% endif %}
+        </div>
+        {% endfor %}
+      </div>
+
+      {% endif %}
+    </div>
+  </div>
+
+  {% endblock content %}
+</div>

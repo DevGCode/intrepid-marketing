@@ -1,0 +1,24 @@
+{% extends 'userarea/main.html' %} {% block content %} {% load static %}
+{% include 'userarea/header.html' %}
+
+<div class="justify-content-md-center mt-3">
+  <h3 class="text-center">Your Business Information</h3>
+  <hr />
+
+  <p><b>{{ website_info.tagline }}</b></p>
+
+  <p>{{ website_info.description }}</p>
+
+  <hr />
+
+  <p><i class="fa fa-map-marker"></i> {{ website_info.address }}</p>
+  <p><i class="fa fa-phone"></i> {{ website_info.phone }}</p>
+  <p><i class="fa fa-envelope"></i> {{ website_info.email }}</p>
+  <p><i class="fa fa-globe"></i> {{ website_info.website }}</p>
+
+  <a class="btn btn-primary" href="{% url 'update-info' website_info.pk %}">
+    Update Information</a
+  >
+</div>
+
+{% endblock content %}

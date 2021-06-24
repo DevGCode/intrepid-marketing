@@ -1,0 +1,114 @@
+{% extends 'userarea/main.html' %}
+{% block content %}
+{% load static %}
+
+ 
+<!-- Success message -->
+{% if created %}
+  <div class="alert alert-success text-center" role="alert" style="margin-bottom:-10%;">
+    Your website template was selected. Congratulations, you are now in line for your website to be developed!
+  </div>   
+{% endif %}  
+
+
+
+
+ <!-- Hero Section-->
+ <section class="hero">
+  <div class="container" data-aos="zoom-in" data-aos-delay="200">
+    <ul class="breadcrumb">
+      <li class="breadcrumb-item"><a class="icon-yellow" href="{% url 'home' %}">Home</a></li>
+      <li class="breadcrumb-item active" style="color: #000;">Pick Your Website Template</li>
+    </ul>
+    <h1 style="color: #000;">Pick Your Website Template</h1>
+    <p class="text-hero" 
+    style="background-color: #f6b725;
+    color:#000;
+    font-weight:400;
+    width:65%;
+    padding:.75%;
+    padding-left:2%;">
+    Select a template so we can get started on your project.
+    </p>  
+  </div>
+</section>
+    
+    
+    <section class="top-listings">
+      <div class="container" data-aos="fade-up">      
+        <form style="padding:8%;" action="{% url 'template-picker' %}" method="POST" role="form" class="custom-form form" enctype=multipart/form-data>
+          {% csrf_token %}	
+
+
+          <div class="form-row mb-3">
+            <div class="form-group col-md-6">
+              <label for="template_id">Your Selected Template</label>
+              <input name="template_id" value="" type="text" class="form-control" id="temp_id" placeholder="Your selected template" required>  
+            </div>
+          </div>
+
+        
+             <div class="col-md-12 text-center">
+              <button type="submit" class="text-center btn btn-primary btn-lg">Save and Complete</button>
+           </div>
+            
+
+          </form>
+
+           
+        </div>
+       <!-- <a href="" class="btn btn-primary has-shadow has-wide-padding">View More </a> -->
+      </div>
+    </section>
+
+
+
+
+
+
+    <section class="latest-listings">
+        <div class="container">
+          <header>
+            <h2 class="has-lines">Pick <span>Your Template</span></h2>
+          </header>
+          <div class="owl-carousel owl-theme latest-listings-slider">
+            {% for template in templates %}
+              <div class="item listing-item" style="box-shadow: 10px 5px 5px #ddd;">
+              <div class="item-inner">
+                <div class="image"><img src="{{ template.thumbnail.url }}" alt="..." class="img-fluid"></div>
+                <div class="info d-flex align-items-end justify-content-between">
+                  <div><a href="#" class="badge-transparent">{{ template.name|title }}</a>
+                    <h3><a href="{{ template.url }}">  {{ template.name }}</a></h3>
+                    <p class="btn btn-primary" onclick="selectTemplate('{{ template.id ')">Select This Template</p> 
+                  </div>
+                </div>
+              </div>
+              <div class="rate-box d-flex align-items-center">
+              </div>
+              <div class="description"> 
+                <p>{{ template.name }} </p><a class="text-primary" href="{{ template.url }}">See Demo</a>
+              </div>
+            </div>
+            {% endfor %}
+          </div>
+        </div>
+      </section>
+
+    
+
+   
+
+
+  
+    <script>
+        function selectTemplate(id){
+            // window.alert('id')
+            document.getElementById("temp_id").value = id;
+        }
+    </script>
+
+    
+
+
+{% endblock content %}
+

@@ -1,0 +1,112 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+
+<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" crossorigin="anonymous"> -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" crossorigin="anonymous"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
+<script>
+$(function(){
+   $('.date-withicon').datepicker({
+      format: 'mm-dd-yyyy'
+    });
+});
+</script>
+
+
+
+
+{% if first_last %}
+  <div class="alert alert-success text-center" role="alert" style="margin-bottom:-10%;">
+    Thank you {{ first_last|title }} for requesting a free website audit! We will be in touch shortly.
+  </div>
+{% endif %}
+
+
+
+    <!-- Hero Section-->
+    <section id="auditPhoto" class="hero">
+      <div class="container" data-aos="zoom-in" data-aos-delay="200">
+        <ul class="breadcrumb">
+          <li class="breadcrumb-item"><a class="icon-yellow" href="{% url 'home' %}">Home</a></li>
+          <li class="breadcrumb-item active">Free Website Audit</li>
+        </ul>
+        <h1 style="text-shadow: 2px 2px #000;">Free Website Audit</h1>
+        <p class="text-hero" 
+        style="background-color: #f6b725;
+        color:#000;
+        font-weight:400;
+        width:59%;
+        padding:.75%;
+        padding-left:2%;">
+        Discover why your website isn't earning you new business.
+        </p>  
+      </div>
+    </section>
+    
+
+
+    <section class="padding-small bg-gray">
+      <div class="container" data-aos="fade-up">
+        <div class="row">
+          <div class="col-md-5 text-center">
+            <img src="{% static 'website/img/free-website-audit-book.png' %}" alt="">
+          </div>
+          <div class="col-md-7">
+            <h2 class="text-center mb-3">Get Your <span class="text-primary"> Free</span> Website Audit</h2>
+            <form style="background-color:#fff; padding:8%;" action="{% url 'free-website-audit' %}" method="POST" role="form" class="custom-form form">
+              {% csrf_token %}		 
+              <div class="form-row">
+                 
+              <div class="form-row">
+                <div class="col-md-6 form-group">
+                   <!-- Your Phone -->
+                   <input type="tel" pattern="^[0-9-\s()]*$" class="form-control" name="phone" placeholder="Your Phone" data-rule="minlen:4" data-msg="Please enter at least 4 chars" required/>
+                 </div>
+                <div class="col-md-6 form-group">
+                  <!-- First/Last -->
+                  <input type="text" class="form-control" name="firstlast" placeholder="Your Full Name" data-rule="minlen:4" data-msg="Please enter at least 4 chars" required />
+                 </div>
+              </div>
+              <div class="form-row">
+                <div class="col-md-6 form-group">
+                  <!-- your email -->
+                  <input type="email" class="form-control" name="email" placeholder="Your Email" data-rule="email" data-msg="Please enter a valid email" required/>
+                 </div>
+                 <div class="col-md-6 form-group">
+                  <!-- website -->
+                  <input type="text" name="website" class="form-control" placeholder="Your website URL" data-rule="minlen:4" data-msg="Please enter at least 4 chars" required/>
+                 </div>
+              </div>
+
+            
+
+
+
+              <div class="form-row">
+                <div class="col-md-12 mr-5 form-group text-center">
+                  <!-- Agree to terms -->
+                  <input type="checkbox" class="form-check-input" required>
+                  <label class="form-check-label" for="exampleCheck1">I agree to the terms of service <a href="{% url 'terms' %}"><i class="ml-2 fa fa-info-circle"></i></a></label>
+                 </div>
+              </div> 
+              <div class="text-center">
+               <button type="submit" class="btn btn-info">Get Your Free Website Audit</button>
+              </div>
+              </form>
+ 
+          </div>
+        </div>
+      </div>
+    </section>
+
+ 
+     
+   
+
+
+ 
+{% endblock content %}

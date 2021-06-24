@@ -1,0 +1,147 @@
+{% extends 'base.html' %} {% load static %} {% block content %}
+
+<!-- Hero Section-->
+<section id="hero" class="hero d-flex align-items-center" style="height: 340px">
+  <div class="container" data-aos="zoom-in" data-aos-delay="200">
+    <!-- <p class="small-text-hero"><i class="icon-localizer text-primary mr-1"></i>Planning your move? <span class="text-primary"> Choose a category of interest.</span></p> -->
+    <h1 style="text-shadow: 2px 2px #000; font-size: 4.5rem">
+      Intrepid Marketing
+    </h1>
+    <h3
+      class="text-hero"
+      style="
+        font-size: 2.5rem;
+        font-weight: 400;
+        color: #ffc107;
+        text-shadow: 2px 2px #000;
+      "
+    >
+      Digital Marketing for the Brave
+    </h3>
+    <p
+      style="font-size: 1.45rem; font-weight: 400; text-shadow: 2px 2px #000"
+      class="hero-sub-header"
+    >
+      <span>In</span> <span id="location"></span
+      ><span>, and all across the USA</span>
+    </p>
+  </div>
+</section>
+
+<!-- About Section-->
+<section class="services">
+  <div class="container text-center" data-aos="fade-up">
+    <header>
+      <h2>What does <b>Intrepid Marketing</b> do?</h2>
+      <p class="lead col-md-10 mx-auto">
+        We help your small businesses connect to new & existing customers.
+      </p>
+    </header>
+    <div class="row">
+      <!-- Item-->
+      <div class="item col-lg-4" data-aos="zoom-in" data-aos-delay="100">
+        <div class="icon"><i class="fa fa-mobile"></i></div>
+        <div class="text">
+          <h3 class="h4">Social Media</h3>
+          <p class="text-muted">
+            Aute irure dolor in reprehenderit in voluptate velit esse cillum
+            dolore eu fugiat nulla pariatur.
+          </p>
+        </div>
+      </div>
+      <!-- Item-->
+      <div class="item col-lg-4" data-aos="zoom-in" data-aos-delay="100">
+        <div class="icon"><i class="fa fa-laptop"></i></div>
+        <div class="text">
+          <h3 class="h4">Website Design</h3>
+          <p class="text-muted">
+            Aute irure dolor in reprehenderit in voluptate velit esse cillum
+            dolore eu fugiat nulla pariatur.
+          </p>
+        </div>
+      </div>
+      <!-- Item-->
+      <div class="item col-lg-4" data-aos="zoom-in" data-aos-delay="100">
+        <div class="icon"><i class="fa fa-google"></i></div>
+        <div class="text">
+          <h3 class="h4">SEO</h3>
+          <p class="text-muted">
+            Aute irure dolor in reprehenderit in voluptate velit esse cillum
+            dolore eu fugiat nulla pariatur.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Separator Section-->
+<section class="divider cta-bg" data-aos="fade-up">
+  <div class="container" data-aos="zoom-in" data-aos-delay="100">
+    <h2 style="text-shadow: 2px 2px #000" class="has-lines">
+      Request Our Portfolio
+    </h2>
+    <p class="lead">We are excited to share our past work with you.</p>
+    <a
+      href="{% url 'request-portfolio' %}"
+      class="btn btn-info has-shadow has-wide-padding"
+      >Request Portfolio</a
+    >
+  </div>
+</section>
+
+<!-- Blog Section-->
+<section class="blog bg-gray">
+  <div class="container" data-aos="fade-up">
+    <header>
+      <h2 class="has-lines">
+        Helpful Marketing
+        <span class="text-primary">Articles &amp; Tips</span> for your business
+      </h2>
+      <p class="lead">Learn how digital marketing can help your business.</p>
+    </header>
+    <div class="row">
+      {% for post in latest %}
+      <div class="col-lg-4" data-aos="zoom-in" data-aos-delay="100">
+        <div class="post">
+          <div class="image">
+            <img src="{{ post.thumbnail.url }}" alt="..." />
+          </div>
+          <div class="info d-flex align-items-end">
+            <div class="content">
+              <div class="post-meta">{{ post.timestamp }}</div>
+              <a href="{% url 'post-detail' post.pk %}">
+                <h3>{{ post.title }}</h3></a
+              >
+              <p>{{ post.overview|linebreaks|truncatechars:'150' }}</p>
+              <a
+                href="{% url 'post-detail' post.pk %}"
+                class="has-lines read-more"
+                >Read More</a
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+    <a
+      href="{% url 'post-list' %}"
+      class="pull-right visit-blog btn-lg btn btn-primary has-shadow has-wide-padding"
+      >Visit Blog</a
+    >
+  </div>
+</section>
+
+<script>
+  window.onload = function lookupLocation() {
+    $.getJSON(
+      "https://geolocation-db.com/json/c0593a60-4159-11eb-80cd-db15f946225f",
+      function (data) {
+        $("#location").html(data.city);
+      }
+    );
+  };
+</script>
+
+{% endblock content %}

@@ -1,0 +1,37 @@
+{% extends 'userarea/main.html' %} {% load static %} {% block content %} {% include 'userarea/header.html' %}
+
+<div class="justify-content-md-center mt-3">
+  <h3 class="text-center">Watch Your Business Grow</h3>
+  <hr />
+
+  <div class="container bg-gray p-5" id="print">
+    {% if reports %} {% for report in reports %}
+    <div class="row mt-3">
+      <div class="col">
+        <p><b>Date:</b> {{ report.title }}</p>
+      </div>
+      <div class="col">
+        <p><b>For:</b> {{ report.date_created}}</p>
+      </div>
+      <div class="col">
+        <a href="{{ report.url }}" class="btn btn-primary">Details</a>
+      </div>
+      <div class="col">
+        {% if report.read %}
+        <p class="text-success"><i class="fa fa-check"></i> Accepted</p>
+        {% else %}
+        <a href="{% url 'mark-report-as-read' report.id %}" class="text-danger"
+          ><i class="fa fa-times-circle"></i> Accept</a
+        >
+        {% endif %}
+      </div>
+    </div>
+    <hr />
+    <br />
+    {% endfor %} {% else %}
+    <p>Your reports will go here once you have completed your first project.</p>
+    {% endif %}
+  </div>
+
+  {% endblock content %}
+</div>

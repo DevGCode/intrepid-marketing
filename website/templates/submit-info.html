@@ -1,0 +1,280 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load static %}
+
+
+<script>
+
+  function addFAQ(){
+     var target = document.getElementById('faq_section');
+     var clonedTarget = target.cloneNode(true);
+     target.parentNode.insertBefore(clonedTarget, target);
+  }
+</script>
+
+<!-- Success message -->
+{% if website_info %}
+  <div class="alert alert-success text-center" role="alert" style="margin-bottom:-10%;">
+    Your information was submitted to our team! We will be in touch shortly. Thank you so much for doing business with Intrepid Marketing.
+  </div>   
+{% endif %}  
+
+
+
+
+<style>
+  .customReadonly{
+    background-color:transparent;
+    border-color:transparent;
+  }
+</style>
+
+ <!-- Hero Section-->
+ <section id="auditPhoto" class="hero">
+  <div class="container" data-aos="zoom-in" data-aos-delay="200">
+    <ul class="breadcrumb">
+      <li class="breadcrumb-item"><a class="icon-yellow" href="{% url 'home' %}">Home</a></li>
+      <li class="breadcrumb-item active">Submit Your Business Details</li>
+    </ul>
+    <h1 style="text-shadow: 2px 2px #000;">Submit Your Business Details</h1>
+    <p class="text-hero" 
+    style="background-color: #f6b725;
+    color:#000;
+    font-weight:400;
+    width:65%;
+    padding:.75%;
+    padding-left:2%;">
+    Send over the information we need to get started on your project.
+    </p>  
+  </div>
+</section>
+    
+    
+    <section class="top-listings">
+      <div class="container" data-aos="fade-up">      
+        <form style="padding:8%;" action="{% url 'submit-info' %}" method="POST" role="form" class="custom-form form" enctype=multipart/form-data>
+          {% csrf_token %}	
+
+
+          <div class="form-row mb-3">
+            <div class="form-group col-md-6">
+              <label for="listingTitle">Business Name</label>
+              <input name="business_name" type="text" class="form-control" id="listingTitle" placeholder="Your business name" required>  
+            </div>
+            <div class="form-group col-md-6">
+              <label for="Tagline">Short Description</label>
+              <input name="tagline" type="text" class="form-control" id="Tagline" placeholder="Your tagline" required>
+            </div>
+          </div>
+
+        <div class="form-row mb-3">
+           <div class="form-group col-md-6">
+            <label for="phone">Your business phone</label>
+            <input name="phone" type="text" class="form-control" id="phone" placeholder="Your phone number" required>
+          </div>  
+          <div class="form-group col-md-6">
+            <label for="address">Your business address</label>
+            <input name="address" type="text" class="form-control" id="address" placeholder="Your full address" required>
+          </div>
+        </div>
+
+            <div class="form-row mb-3">
+              <div class="form-group col-md-6">
+                <label for="website">Your current website</label>
+                <input name="website" type="text" class="form-control" id="website">
+              </div>
+               <div class="form-group col-md-6">
+                  <label for="email">Your business email</label>
+                  <input name="email" type="text" class="form-control" id="email">
+              </div>   
+            </div>
+             
+
+            <div class="form-row mb-3">
+              <div class="col-md-12">
+                  <label for="description">Write a detailed description</label>
+                  <textarea name="description" class="form-control" id="description" rows="10" required></textarea>
+                </div>
+            </div>
+
+
+          <!-- Pass the web picker object id -->
+                   <!-- Monday -->
+                  <div class="row">
+                    <div class="col-md-4">
+                      <p class="weekdayLabel">Monday:</p>
+                    </div>
+                    <div class="col-md-4">
+                      <select class="form-control" name="mondayopen">
+                        <option>Closed</option>
+                        {% include 'hours.html' %}
+                      </select>
+                    </div>
+                    <div class="col-md-4">
+                      <select class="form-control" name="mondayclosed">
+                        <option>Closed</option>
+                        {% include 'hours.html' %}        
+                      </select>
+                    </div>
+                  </div>
+
+                  <!-- Tuesday -->
+                  <div class="row">
+                    <div class="col-md-4">
+                      <p class="weekdayLabel">Tuesday:</p>
+                    </div>
+                    <div class="col-md-4">
+                      <select class="form-control" name="tuesdayopen">
+                        <option>Closed</option>
+                        {% include 'hours.html' %}
+                      </select>
+                    </div>
+                    <div class="col-md-4">
+                      <select class="form-control" name="tuesdayclosed">
+                        <option>Closed</option>
+                        {% include 'hours.html' %}        
+                      </select>
+                    </div>
+                  </div>
+
+
+                  <!-- Wednesday -->
+                  <div class="row">
+                    <div class="col-md-4">
+                      <p class="weekdayLabel">Wednesday:</p>
+                    </div>
+                    <div class="col-md-4">
+                      <select class="form-control" name="wednesdayopen">
+                        <option>Closed</option>
+                        {% include 'hours.html' %}
+                      </select>
+                    </div>
+                    <div class="col-md-4">
+                      <select class="form-control" name="wednesdayclosed">
+                        <option>Closed</option>
+                        {% include 'hours.html' %}        
+                      </select>
+                    </div>
+                  </div>
+
+                  <!-- Thursday -->
+                  <div class="row">
+                    <div class="col-md-4">
+                      <p class="weekdayLabel">Thursday:</p>
+                    </div>
+                    <div class="col-md-4">
+                      <select class="form-control" name="thursdayopen">
+                        <option>Closed</option>
+                        {% include 'hours.html' %}
+                      </select>
+                    </div>
+                    <div class="col-md-4">
+                      <select class="form-control" name="thursdayclosed">
+                        <option>Closed</option>
+                        {% include 'hours.html' %}        
+                      </select>
+                    </div>
+                  </div>
+
+                  <!-- Friday -->
+                  <div class="row">
+                    <div class="col-md-4">
+                      <p class="weekdayLabel">Friday:</p>
+                    </div>
+                    <div class="col-md-4">
+                      <select class="form-control" name="fridayopen">
+                        <option>Closed</option>
+                        {% include 'hours.html' %}
+                      </select>
+                    </div>
+                    <div class="col-md-4">
+                      <select class="form-control" name="fridayclosed">
+                        <option>Closed</option>
+                        {% include 'hours.html' %}        
+                      </select>
+                    </div>
+                  </div>
+
+                  <!-- Saturday -->
+                  <div class="row">
+                    <div class="col-md-4">
+                      <p class="weekdayLabel">Saturday:</p>
+                    </div>
+                    <div class="col-md-4">
+                      <select class="form-control" name="saturdayopen">
+                        <option>Closed</option>
+                        {% include 'hours.html' %}
+                      </select>
+                    </div>
+                    <div class="col-md-4">
+                      <select class="form-control" name="saturdayclosed">
+                        <option>Closed</option>
+                        {% include 'hours.html' %}        
+                      </select>
+                    </div>
+                  </div>
+
+                  <!-- Sunday -->
+                  <div class="row">
+                    <div class="col-md-4">
+                      <p class="weekdayLabel">Sunday:</p>
+                    </div>
+                    <div class="col-md-4">
+                      <select class="form-control" name="sundayopen">
+                        <option>Closed</option>
+                        {% include 'hours.html' %}
+                      </select>
+                    </div>
+                    <div class="col-md-4">
+                      <select class="form-control" name="sundayclosed">
+                        <option>Closed</option>
+                        {% include 'hours.html' %}        
+                      </select>
+                    </div>
+                  </div>
+ 
+ 
+            
+
+              <div class="col-md-12 mt-3" id="faq_section">
+                <label for="faqs">Answer Frequently Asked Questions</label> <i onclick="addFAQ()" style="font-size:35px;" data-toggle="tooltip" data-placement="top" title="Add a FAQ" class="pull-right text-danger fa fa-plus-circle"></i>
+                <input name="faqs" type="text" class="form-control" placeholder="Question:">
+                <textarea name="faqanswers" class="form-control" rows="3" placeholder="Answer..."></textarea>
+              </div>
+                  
+
+                <div class="col-md-12">
+                  <div class="form-check text-center mt-3">
+                    <input type="checkbox" class="form-check-input" required>
+                    <label class="form-check-label" >I agree to the terms of service <a href="{% url 'terms' %}"><i data-toggle="tooltip" data-placement="top" title="Terms of Service page" class="ml-2 fa fa-info-circle"></i></a></label>
+                  </div>
+                </div>
+              </div>
+ 
+             <div class="col-md-12 text-center">
+              <button type="submit" class="text-center btn btn-primary btn-lg">Save and Complete</button>
+           </div>
+            
+
+          </form>
+
+           
+        </div>
+       <!-- <a href="" class="btn btn-primary has-shadow has-wide-padding">View More </a> -->
+      </div>
+    </section>
+
+
+    
+
+   
+
+
+  
+    
+
+    
+
+
+{% endblock content %}
+

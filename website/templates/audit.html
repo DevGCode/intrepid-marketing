@@ -1,0 +1,64 @@
+{% load static %}
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" crossorigin="anonymous"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
+<script>
+$(function(){
+   $('.date-withicon').datepicker({
+      format: 'mm-dd-yyyy'
+    });
+});
+</script>
+
+
+
+<div class="widget categories">
+    <header>
+      <h3 class="has-lines">Get Your <b>Free</b> Website Audit</h3>
+    </header>
+    <form style="background-color:#fff; padding:8%;" action="{% url 'free-website-audit' %}" method="POST" role="form" class="custom-form form">
+      {% csrf_token %}		 
+      <div class="form-row">
+         
+      <div class="form-row">
+        <div class="col-md-6 form-group">
+           <!-- Your Phone -->
+           <input type="text" class="form-control" name="phone" placeholder="Your Phone" data-rule="minlen:4" data-msg="Please enter at least 4 chars" required/>
+         </div>
+        <div class="col-md-6 form-group">
+          <!-- First/Last -->
+          <input type="text" class="form-control" name="firstlast" placeholder="Your Name" data-rule="minlen:4" data-msg="Please enter at least 4 chars" required />
+         </div>
+      </div>
+      <div class="form-row">
+        <div class="col-md-6 form-group">
+          <!-- your email -->
+          <input type="email" class="form-control" name="email" placeholder="Your Email" data-rule="email" data-msg="Please enter a valid email" required/>
+         </div>
+         <div class="col-md-6 form-group">
+          <!-- website -->
+          <input type="text" name="website" class="form-control" placeholder="Website URL" data-rule="minlen:4" data-msg="Please enter at least 4 chars" required/>
+         </div>
+      </div>
+
+    
+
+
+
+      <div class="form-row">
+        <div class="col-md-12 form-group text-center">
+          <!-- Agree to terms -->
+          <input type="checkbox" class="form-check-input" required>
+          <label class="form-check-label" for="exampleCheck1">I agree to the terms of service <a href="{% url 'terms' %}"><i class="ml-2 fa fa-info-circle"></i></a></label>
+         </div>
+      </div> 
+      <div class="text-center">
+       <button type="submit" class="btn btn-primary">Get Website Audit</button>
+      </div>
+      </form>
+
+  </div>
+
+
+

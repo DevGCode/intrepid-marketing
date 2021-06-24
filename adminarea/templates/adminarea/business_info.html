@@ -1,0 +1,23 @@
+{% extends 'adminarea/base.html' %} {% block content %}
+
+<h2 class="text-center mb-3">Business Info</h2>
+<hr />
+
+{% for info in infos %}
+
+<div class="container">
+  <div class="row">
+    <div class="col mt-4">
+      <p>Record ID: <b>{{ referral.id }}</b></p>
+    </div>
+    <div class="col mt-4">
+      <a class="btn btn-outline-primary" href="{% url 'biz-info' info.id %}"
+        >See Details</a
+      >
+    </div>
+  </div>
+</div>
+<br />
+<hr />
+
+{% endfor %} {% endblock content %}

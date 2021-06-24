@@ -1,0 +1,28 @@
+{% extends "adminarea/base.html" %} {% block content %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"></script>
+
+<div class="container card">
+  <div class="row text-center text-light card-body bg-light">
+    <div class="text-center justify-content-md-center mt-3">
+      <form action="{% url 'make-call' %}" method="POST" class="search-form">
+        {% csrf_token %}
+        <div class="form-group">
+          <input name="number" type="text" placeholder="Place a call to..." />
+          <button type="submit" class="btn btn-primary">
+            <i class="icon-magnify"></i>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+{% if number %}
+<script>
+  myfunc();
+
+  function myfunc() {
+    window.alert("You are now calling {{ number }} ...");
+  }
+</script>
+{% endif %} {% endblock content %}
