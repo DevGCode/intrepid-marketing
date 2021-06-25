@@ -11,7 +11,7 @@
         <h3>Navigation</h3>
         <div class="menus d-flex">
           <ul class="list-unstyled">
-            <li> <a href="{% url 'home' %}">Homepage</a></li> 
+            <li> <a href="{% url 'home' %}">Homepage</a></li>
             <li> <a href="{% url 'post-list' %}">Our Blog</a></li>
             <li> <a href="{% url 'contact' %}">Contact</a></li>
 
@@ -26,7 +26,7 @@
       <div class="contact col-md-4">
         <h3>Send a message</h3>
           <form style="background-color:#fff; padding:8%;" action="{% url 'contact' %}" method="POST" role="form" class="custom-form form">
-            {% csrf_token %}		 
+            {% csrf_token %}
             <div class="form-row">
               <div class="col-md-6 form-group">
                 <input type="text" name="name" class="form-control" id="name" placeholder="Your Name" data-rule="minlen:4" data-msg="Please enter at least 4 chars" />
@@ -48,11 +48,7 @@
 
 
           <ul class="social-menu lisy-inline">
-            <!-- <li class="list-inline-item"><a href="#" target="_blank" title="Facebook"><i class="fa fa-facebook">                        </i></a></li>
-            <li class="list-inline-item"><a href="#" target="_blank" title="Twitter"><i class="fa fa-twitter">                        </i></a></li>
-            <li class="list-inline-item"><a href="#" target="_blank" title="Linkedin"><i class="fa fa-linkedin">                        </i></a></li>
-            <li class="list-inline-item"><a href="#" target="_blank" title="Instagram"><i class="fa fa-instagram">                        </i></a></li>
-            <li class="list-inline-item"><a href="#" target="_blank" title="YouTube"><i class="fa fa-youtube">                        </i></a></li> -->
+
           </ul>
         </div>
       </div>
@@ -62,4 +58,3 @@
     <span><b class="mr-1" style="color:#000;">Powered By Bravery</b><img style="width:30%;" src="{% static 'website/img/logo-black.png' %}" alt=""></span>
   </div>
 </footer>
-

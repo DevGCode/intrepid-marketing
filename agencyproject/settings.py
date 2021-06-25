@@ -15,7 +15,7 @@ SECRET_KEY = '3)63w!d!68tj-v=j0d=9mz(3e=^2#pei94nz_(-)ylq@9v)xib'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['intrepid-marketing.herokuapp.com', '127.0.0.1']
+ALLOWED_HOSTS = []
 
 # Application definition
 

@@ -324,49 +324,6 @@ def posts(request):
 
 
 
-# def search(request):
-#     if request.method == 'POST': # check post
-#         form = SearchForm(request.POST)
-#         if form.is_valid():
-#             query = form.cleaned_data['query'] # get form input data
-#             catid = form.cleaned_data['catid']
-#             if catid==0:
-#                 products=Product.objects.filter(title__icontains=query)  #SELECT * FROM product WHERE title LIKE '%query%'
-#             else:
-#                 products = Product.objects.filter(title__icontains=query,category_id=catid)
-
-#             category = Category.objects.all()
-
-#             context = {
-#                 'products': products,
-#                 'query':query,
-#                 'category': category,
-#                 'nav_services':nav_services,
-
-#                 }
-#             return render(request, 'search_results.html', context)
-
-#     return HttpResponseRedirect('/')
-
-
-
-# def search_auto(request):
-#     if request.is_ajax():
-#         q = request.GET.get('term', '')
-#         products = Product.objects.filter(title__icontains=q)
-
-#         results = []
-#         for rs in products:
-#             product_json = {}
-#             product_json = rs.title +" > " + rs.category.title
-#             results.append(product_json)
-#         data = json.dumps(results)
-#     else:
-#         data = 'fail'
-#     mimetype = 'application/json'
-#     return HttpResponse(data, mimetype)
-
-
 
 def get_author(user):
     qs = Author.objects.filter(user=user)
